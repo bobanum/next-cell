@@ -1,8 +1,9 @@
-@import 'polices/futuristic-clean.css';
+@import 'polices/modern-serif.css';
 @import 'variables.css';
 @import 'boilerplate.css';
 @import 'interface.css';
 @import 'nav.css';
 @import 'app.css';
 
+@import 'binder.css';
 @import 'sheet.css';

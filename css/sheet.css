@@ -3,7 +3,8 @@
 	grid-template-columns: [id-start] repeat(3, auto) [id-end col-body-start e1-start] repeat(3, auto) [e1-end e2-start] repeat(2, auto) [e2-end col-body-end tot-start] repeat(3, auto) [tot-end];
 	grid-template-rows: [label-start] repeat(3, auto) [label-end g-start g1-start] repeat(3, auto) [g1-end g2-start] repeat(2, auto) [g2-end aggr-start] repeat(3, auto) [aggr-end];
 	justify-content: center;
-
+	border: 1px solid #666;
+	background-color: #f0f0f0;
 	>.controls {
 		pointer-events: none;
 		--size: 16px;
