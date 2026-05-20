@@ -1,10 +1,12 @@
 .sheet {
+	--size: minmax(4em, auto);
 	display: grid;
-	grid-template-columns: [id-start] repeat(3, auto) [id-end col-body-start e1-start] repeat(3, auto) [e1-end e2-start] repeat(2, auto) [e2-end col-body-end tot-start] repeat(3, auto) [tot-end];
-	grid-template-rows: [label-start] repeat(3, auto) [label-end g-start g1-start] repeat(3, auto) [g1-end g2-start] repeat(2, auto) [g2-end aggr-start] repeat(3, auto) [aggr-end];
+	grid-template-columns: [ row-label-start] var(--size) [row-label-end leader-start] repeat(3, var(--size)) [leader-end col-body-start e1-start] repeat(3, var(--size)) [e1-end e2-start] repeat(2, var(--size)) [e2-end col-body-end trailer-start] repeat(3, var(--size)) [trailer-end];
+	grid-template-rows: [ col-label-start] var(--size) [col-label-end header-start] repeat(2, var(--size)) [header-end g-start g1-start] repeat(3, var(--size)) [g1-end g2-start] repeat(2, var(--size)) [g2-end footer-start] repeat(3, var(--size)) [footer-end];
 	justify-content: center;
 	border: 1px solid #666;
 	background-color: #f0f0f0;
+
 	>.controls {
 		pointer-events: none;
 		--size: 16px;
@@ -88,34 +90,78 @@
 		}
 	}
 
-	>.row-group {
+	.row-group,
+	.col-group,
+	.cell-group,
+	.row,
+	.col {
 		display: grid;
-		grid-template-columns: subgrid;
-		grid-template-rows: subgrid;
+		grid-template: subgrid / subgrid;
+		grid-area: 1 / 1 / -1 / -1;
+	}
+	.cell-group {
+		border: solid blue;
+
+	}
+	.row-group>.label {
+		grid-row: 1 / -1;
+		grid-column: row-label;
+		background-color: #0001;
+		display: grid;
+		place-items: center;
+
+		>span {
+			padding: .5em 0;
+			writing-mode: sideways-lr;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	}
+
+	.col-group>.label {
+		grid-row: col-label;
+		grid-column: 1 / -1;
+		background-color: #0001;
+		display: grid;
+		place-items: center;
+
+		>span {
+			padding: 0 0.5em;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	}
+
+	>.row-group {
 		grid-row: var(--row-group);
 		grid-column: 1 / -1;
 
 		&.header {
-			background-color: #eee;
+			background-color: #0001;
 		}
 
 		&.footer {
-			background-color: #eee;
+			background-color: #0001;
+		}
+		
+		.leader {
+			border: solid red;
 		}
 	}
-
-	.col-group {
-		display: grid;
-		grid-template-columns: subgrid;
-		grid-template-rows: subgrid;
-		grid-row: var(--row-group);
-		grid-column: var(--col-group);
-	}
-
+	
 	>.col-group {
 		grid-row: 1 / -1;
+		grid-column: var(--col-group);
+		
+		&.leader {
+			background-color: #0001;
+		}
 
-		>.control {
+		&.trailer {
+			background-color: #0001;
+		}
+
+		/* >.control {
 			width: 4px;
 			background-color: #CCC;
 			border: 1px outset #CCC;
@@ -129,14 +175,31 @@
 			&:hover {
 				opacity: 1;
 			}
-		}
+		} */
+	}
+
+	.header {
+		grid-row: header;
+	}
+
+	.footer {
+		grid-row: footer;
+	}
+
+	.leader {
+		grid-column: leader;
+	}
+
+	.trailer {
+		grid-column: trailer;
 	}
 
 	.row {
-		display: grid;
-		grid-template-columns: subgrid;
-		grid-template-rows: subgrid;
-		grid-column: 1 / -1;
+		grid-row: auto;
+	}
+
+	.col {
+		grid-column: auto;
 	}
 
 	.cell {
@@ -145,16 +208,25 @@
 	}
 }
 
-.row-group.header>.col-group {
-	>.row:first-child {
-		>.cell {
-			grid-column: 1 / -1;
-			text-align: center;
-		}
-	}
-}
+/* .header>.leader {
+	border: solid;
+	grid-row: header;
+	grid-column: leader;
+} */
 
-.row-group.header>.col-group.footer {
+
+/* .row-group.header>.col-group {
+	.label {
+		grid-column: 1 / -1;
+		grid-row: col-label;
+		text-align: center;
+		background-color: #0001;
+		padding: 0 .5em;
+	}
+} */
+
+
+/* .row-group.header>.col-group.trailer {
 	>.row:nth-child(1) {
 		grid-row: span 2;
 		grid-template: unset;
@@ -174,11 +246,10 @@
 		}
 	}
 
-}
+} */
 
-.row-group.header>.col-group.header {
+/* .row-group.header>.col-group.leader {
 	>.row:nth-child(1) {
-		grid-row: span 2;
 		grid-template: unset;
 
 		>.cell {
@@ -196,9 +267,9 @@
 			justify-content: center;
 		}
 	}
-}
+} */
 
-.row-group.footer>.col-group.header {
+/* .row-group.footer>.col-group.leader {
 	font-weight: bold;
 
 	>.row {
@@ -209,4 +280,4 @@
 		}
 	}
 
-}
+} */
