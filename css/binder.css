@@ -3,30 +3,93 @@
 	justify-content: center;
 	padding: 1rem;
 
+	&.top-tabs {
+		.tabs {
+			order: -1;
+
+			>div {
+				border-radius: var(--gap) var(--gap) 0 0;
+				border: 1px solid #ccc;
+				border-bottom: none;
+
+			}
+		}
+	}
+
+	&.left-tabs {
+		grid-template-columns: auto max-content;
+
+		.tabs {
+			padding-top: .5em;
+			order: -1;
+			flex-direction: column;
+
+			>div {
+				border-radius: var(--gap) 0 0 var(--gap);
+				border: 1px solid #ccc;
+				border-right: none;
+
+			}
+			button {
+				border: none;
+				align-self: end;
+				margin-right: 4px;
+			}
+		}
+	}
+	
+	&.right-tabs {
+		grid-template-columns: auto max-content;
+
+		.tabs {
+			padding: .5em 0 0 0;
+			order: 1;
+			flex-direction: column;
+
+			>div {
+				border-radius: 0 var(--gap) var(--gap) 0;
+				border: 1px solid #ccc;
+				border-left: none;
+
+			}
+			button {
+				border: none;
+				align-self: start;
+				margin-left: 4px;
+			}
+		}
+	}
+
+
 	.tabs {
 		--gap: 4px;
 		display: flex;
 		gap: var(--gap);
 		line-height: 1;
+		order: 1;
+		padding-left: .5em;
 
 		>div {
 			display: flex;
 			padding: var(--gap) .5rem;
 			padding-right: 0;
-			border: 1px solid #666;
-			border-bottom: none;
+			border: 1px solid #ccc;
+			border-top: none;
 			background-color: #e0e0e0;
 			cursor: pointer;
-			border-radius: var(--gap) var(--gap) 0 0;
+			border-radius: 0 0 var(--gap) var(--gap);
 			gap: var(--gap);
+			justify-content: space-between;
 
 			&.active {
 				background-color: #f0f0f0;
 				font-weight: bold;
 			}
+
 			&:not(.active):hover {
 				background-color: #d0d0d0;
 			}
+
 			&:hover::after {
 				opacity: 1;
 			}
@@ -48,6 +111,17 @@
 			justify-content: center;
 			font-size: 1.5em;
 			line-height: 0;
+			width: 1.5rem;
+			height: 1.5rem;
+			border-radius: 100%;
+			&:hover {
+				background-color: #f0f0f0;
+			}
 		}
+	}
+
+	.sheet {
+		border: 1px solid #ccc;
+		background-color: #f0f0f0;
 	}
 }

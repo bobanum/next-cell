@@ -1,11 +1,14 @@
 .sheet {
-	--size: minmax(4em, auto);
+	--bg: hsl(180, 0%, 0%, 3%);
+	--row-size: 2em;
+	--col-size: auto;
+	--gap: 5px;
 	display: grid;
-	grid-template-columns: [ row-label-start] var(--size) [row-label-end leader-start] repeat(3, var(--size)) [leader-end col-body-start e1-start] repeat(3, var(--size)) [e1-end e2-start] repeat(2, var(--size)) [e2-end col-body-end trailer-start] repeat(3, var(--size)) [trailer-end];
-	grid-template-rows: [ col-label-start] var(--size) [col-label-end header-start] repeat(2, var(--size)) [header-end g-start g1-start] repeat(3, var(--size)) [g1-end g2-start] repeat(2, var(--size)) [g2-end footer-start] repeat(3, var(--size)) [footer-end];
+	grid-template-columns: [ row-label-start] var(--col-size) [row-label-end leader-start] repeat(3, var(--col-size)) [leader-end col-body-start e1-start] repeat(3, var(--col-size)) [e1-end e2-start] repeat(2, var(--col-size)) [e2-end col-body-end trailer-start] repeat(3, var(--col-size)) [trailer-end];
+	grid-template-rows: [ col-label-start] var(--row-size) [col-label-end header-start] repeat(2, var(--row-size)) [header-end g-start g1-start] repeat(3, var(--row-size)) [g1-end g2-start] repeat(2, var(--row-size)) [g2-end footer-start] repeat(3, var(--row-size)) [footer-end];
 	justify-content: center;
-	border: 1px solid #666;
-	background-color: #f0f0f0;
+	gap: var(--gap);
+	padding: var(--gap);
 
 	>.controls {
 		pointer-events: none;
@@ -99,16 +102,16 @@
 		grid-template: subgrid / subgrid;
 		grid-area: 1 / 1 / -1 / -1;
 	}
-	.cell-group {
-		border: solid blue;
-
+	.cell {
+		align-items: center;
 	}
 	.row-group>.label {
 		grid-row: 1 / -1;
 		grid-column: row-label;
-		background-color: #0001;
+		background-color: var(--bg);
 		display: grid;
 		place-items: center;
+		text-align: center;
 
 		>span {
 			padding: .5em 0;
@@ -121,9 +124,10 @@
 	.col-group>.label {
 		grid-row: col-label;
 		grid-column: 1 / -1;
-		background-color: #0001;
+		background-color: var(--bg);
 		display: grid;
 		place-items: center;
+		text-align: center;
 
 		>span {
 			padding: 0 0.5em;
@@ -136,29 +140,21 @@
 		grid-row: var(--row-group);
 		grid-column: 1 / -1;
 
-		&.header {
-			background-color: #0001;
-		}
-
+		&.header,
 		&.footer {
-			background-color: #0001;
-		}
-		
-		.leader {
-			border: solid red;
+			grid-column-start: leader;
+			background-color: var(--bg);
 		}
 	}
-	
+
 	>.col-group {
 		grid-row: 1 / -1;
 		grid-column: var(--col-group);
-		
-		&.leader {
-			background-color: #0001;
-		}
 
+		&.leader,
 		&.trailer {
-			background-color: #0001;
+			grid-row-start: header;
+			background-color: var(--bg);
 		}
 
 		/* >.control {
@@ -207,77 +203,3 @@
 		display: flex;
 	}
 }
-
-/* .header>.leader {
-	border: solid;
-	grid-row: header;
-	grid-column: leader;
-} */
-
-
-/* .row-group.header>.col-group {
-	.label {
-		grid-column: 1 / -1;
-		grid-row: col-label;
-		text-align: center;
-		background-color: #0001;
-		padding: 0 .5em;
-	}
-} */
-
-
-/* .row-group.header>.col-group.trailer {
-	>.row:nth-child(1) {
-		grid-row: span 2;
-		grid-template: unset;
-
-		>.cell {
-			justify-content: center;
-			align-items: end;
-		}
-	}
-
-	>.row:nth-child(2) {
-		grid-template-rows: 1fr;
-
-		.cell {
-			align-items: end;
-			justify-content: center;
-		}
-	}
-
-} */
-
-/* .row-group.header>.col-group.leader {
-	>.row:nth-child(1) {
-		grid-template: unset;
-
-		>.cell {
-			justify-content: center;
-			align-items: end;
-		}
-	}
-
-	>.row:nth-child(2) {
-		grid-template-rows: 1fr;
-		font-weight: bold;
-
-		.cell {
-			align-items: end;
-			justify-content: center;
-		}
-	}
-} */
-
-/* .row-group.footer>.col-group.leader {
-	font-weight: bold;
-
-	>.row {
-		grid-template: unset;
-
-		>.cell {
-			justify-content: end;
-		}
-	}
-
-} */
