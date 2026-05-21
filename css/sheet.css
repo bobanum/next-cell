@@ -1,97 +1,15 @@
 .sheet {
 	--bg: hsl(180, 0%, 0%, 3%);
-	--row-size: 2em;
+	--row-size: 1.6em;
 	--col-size: auto;
 	--gap: 5px;
 	display: grid;
-	grid-template-columns: [ row-label-start] var(--col-size) [row-label-end leader-start] repeat(3, var(--col-size)) [leader-end col-body-start e1-start] repeat(3, var(--col-size)) [e1-end e2-start] repeat(2, var(--col-size)) [e2-end col-body-end trailer-start] repeat(3, var(--col-size)) [trailer-end];
-	grid-template-rows: [ col-label-start] var(--row-size) [col-label-end header-start] repeat(2, var(--row-size)) [header-end g-start g1-start] repeat(3, var(--row-size)) [g1-end g2-start] repeat(2, var(--row-size)) [g2-end footer-start] repeat(3, var(--row-size)) [footer-end];
+	grid-template-columns: [sheet-start row-label-start] var(--col-size) [row-label-end header-start] repeat(3, var(--col-size)) [header-end body-start e1-start] repeat(3, var(--col-size)) [e1-end e2-start] repeat(2, var(--col-size)) [e2-end body-end footer-start] repeat(3, var(--col-size)) [footer-end sheet-end];
+	grid-template-rows: [sheet-start col-label-start] var(--row-size) [col-label-end header-start] repeat(2, var(--row-size)) [header-end body-start g1-start] repeat(3, var(--row-size)) [g1-end g2-start] repeat(2, var(--row-size)) [g2-end body-end footer-start] repeat(3, var(--row-size)) [footer-end sheet-end];
 	justify-content: center;
 	gap: var(--gap);
 	padding: var(--gap);
-
-	>.controls {
-		pointer-events: none;
-		--size: 16px;
-		grid-area: 1 / 1 / -1 / -1;
-		position: relative;
-		display: grid;
-		grid-template: subgrid / subgrid;
-
-		.size-control {
-			pointer-events: all;
-		}
-
-		.col-group,
-		.row-group {
-			display: grid;
-			grid-area: 1 / 1 / -1 / -1;
-
-			.size-control {
-				background-color: transparent;
-				cursor: pointer;
-				display: grid;
-				opacity: 0.1;
-				transition: 0.2s ease-in-out;
-
-				&::before {
-					content: '';
-					background-color: #666;
-					border: 1px outset #000;
-				}
-
-				&:hover {
-					opacity: .5;
-				}
-			}
-		}
-
-		.col-group {
-			grid-column: var(--col-group);
-
-			.size-control {
-				grid-area: 1 / -2 / -1 / -1;
-				justify-self: end;
-				justify-items: center;
-				transform: translate(50%, 0);
-				width: var(--size);
-
-				&::before {
-					width: 2px;
-					border-block: none;
-				}
-
-				&:hover {
-					&::before {
-						width: 4px;
-					}
-				}
-			}
-		}
-
-		.row-group {
-			grid-row: var(--row-group);
-
-			.size-control {
-				grid-area: -2 / 1 / -1 / -1;
-				align-self: end;
-				align-items: center;
-				transform: translate(0, 50%);
-				height: var(--size);
-
-				&::before {
-					height: 2px;
-					border-inline: none;
-				}
-
-				&:hover {
-					&::before {
-						height: 4px;
-					}
-				}
-			}
-		}
-	}
+	line-height: 1;
 
 	.row-group,
 	.col-group,
@@ -137,57 +55,26 @@
 	}
 
 	>.row-group {
-		grid-row: var(--row-group);
 		grid-column: 1 / -1;
 
 		&.header,
 		&.footer {
-			grid-column-start: leader;
+			grid-column-start: header;
 			background-color: var(--bg);
 		}
 	}
 
 	>.col-group {
 		grid-row: 1 / -1;
-		grid-column: var(--col-group);
 
-		&.leader,
-		&.trailer {
+		&.header,
+		&.footer {
 			grid-row-start: header;
 			background-color: var(--bg);
 		}
-
-		/* >.control {
-			width: 4px;
-			background-color: #CCC;
-			border: 1px outset #CCC;
-			grid-row: 1 / -1;
-			grid-column: -2;
-			justify-self: end;
-			opacity: 0;
-			transition: opacity 0.2s ease-in-out;
-			cursor: pointer;
-
-			&:hover {
-				opacity: 1;
-			}
-		} */
 	}
-
-	.header {
-		grid-row: header;
-	}
-
-	.footer {
-		grid-row: footer;
-	}
-
-	.leader {
-		grid-column: leader;
-	}
-
-	.trailer {
-		grid-column: trailer;
+	>.col-group>.row-group {
+		grid-row-start: header;
 	}
 
 	.row {
@@ -201,5 +88,37 @@
 	.cell {
 		padding: 0ch .5ch;
 		display: flex;
+	}
+	.header-header {
+		border: solid;
+		grid-area: header / header;
+		.row:first-child {
+			grid-template: none;
+			text-align: center;
+			justify-content: center;
+		}
+		.row:nth-child(2) {
+			font-weight: bold;
+		}
+	}
+	.header-footer {
+		grid-area: header / footer;
+		.row:first-child {
+			grid-template: none;
+			text-align: center;
+			justify-content: center;
+			font-weight: bold;
+		}
+	}
+	.footer-header {
+		grid-area: footer / header;
+		font-weight: bold;
+		.row {
+			grid-template: none;
+			justify-items: end;
+		}
+	}
+	.footer-footer {
+		grid-area: footer / footer;
 	}
 }

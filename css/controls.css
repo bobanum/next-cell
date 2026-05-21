@@ -1,0 +1,80 @@
+.sheet>.controls {
+	pointer-events: none;
+	--size: 16px;
+	grid-area: 1 / 1 / -1 / -1;
+	position: relative;
+	display: grid;
+	grid-template: subgrid / subgrid;
+
+	.size-control {
+		pointer-events: all;
+	}
+
+	.col-group,
+	.row-group {
+		display: grid;
+		grid-area: 1 / 1 / -1 / -1;
+
+		.size-control {
+			background-color: transparent;
+			cursor: pointer;
+			display: grid;
+			opacity: 0.1;
+			transition: 0.2s ease-in-out;
+
+			&::before {
+				content: '';
+				background-color: #666;
+				border: 1px outset #000;
+			}
+
+			&:hover {
+				opacity: .5;
+			}
+		}
+	}
+
+	.col-group {
+
+		.size-control {
+			grid-area: 1 / -2 / -1 / -1;
+			justify-self: end;
+			justify-items: center;
+			transform: translate(50%, 0);
+			width: var(--size);
+
+			&::before {
+				width: 2px;
+				border-block: none;
+			}
+
+			&:hover {
+				&::before {
+					width: 4px;
+				}
+			}
+		}
+	}
+
+	.row-group {
+
+		.size-control {
+			grid-area: -2 / 1 / -1 / -1;
+			align-self: end;
+			align-items: center;
+			transform: translate(0, 50%);
+			height: var(--size);
+
+			&::before {
+				height: 2px;
+				border-inline: none;
+			}
+
+			&:hover {
+				&::before {
+					height: 4px;
+				}
+			}
+		}
+	}
+}
