@@ -5,6 +5,7 @@
 	<meta charset="UTF-8" />
 	<link rel="shortcut icon" href="img/favicon.svg" type="image/svg+xml" />
 	<link rel="stylesheet" href="css/style.css" />
+	<script type="module" src="index.js"></script>
 	<script type="module">
 		import App from "./src/App.js";
 		App.main();
@@ -25,20 +26,7 @@
 			</nav>
 		</header>
 		<div id="app">
-			<div class="test">
-				<div class="in">
-					<div class="cell">1</div>
-					<div class="cell">2</div>
-					<div class="cell">3</div>
-					<div class="cell">4</div>
-					<div class="cell">5</div>
-					<div class="cell">6</div>
-					<div class="cell">7</div>
-					<div class="cell">8</div>
-					<div class="cell">9</div>
-					<div class="cell">10</div>
-				</div>
-			</div>
+			<n-binder href="test.json"></n-binder>
 			<div class="binder">
 				<div class="tabs">
 					<div class="active">Feuille 1</div>
