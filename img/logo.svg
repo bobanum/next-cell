@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="136" height="144" version="1.1" xmlns="http://www.w3.org/2000/svg">
-   <path d="m60 64 60-8 16 16-16 16-60-8 8-8z" style="fill:#000080"/>
-   <path d="m40 8c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h48c17.67 0 32-14.33 32-32v-8h-32v8h-48v-64h48v8h32v-8c0-17.67-14.33-32-32-32z" style="fill:#008080"/>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="128" height="128" version="1.1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+   <g>
+      <path d="m0 0v128h93.39v-17.04l16.93 17.04h17.68v-128h-93.39v17.04l-16.93-17.04zm58.79 24.18h45.03v62.53l-45.03-45.33zm-34.61 17.1 45.03 45.33v17.2h-45.03z"/>
+   </g>
 </svg>
