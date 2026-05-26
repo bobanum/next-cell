@@ -1,0 +1,237 @@
+{
+	"name": "Évaluations",
+	"sheets": {
+		"f1": {
+			"name": "Feuille 1",
+			"columns": {
+				"header": {
+					"_label": "Identification",
+					"nom": {
+						"_label": "Nom",
+						"type": "text"
+					},
+					"prenom": {
+						"_label": "Prénom",
+						"type": "text"
+					},
+					"matricule": {
+						"_label": "Matricule",
+						"type": "text"
+					}
+				},
+				"bodies": {
+					"_layout": [
+						"_label",
+						"value",
+						"...data",
+						"...statistiques"
+					],
+					"cells": {
+						"titre": {
+							"_label": "Titre",
+							"type": "text"
+						},
+						"valeur": {
+							"_label": "valeur",
+							"type": "number"
+						}
+					},
+					"e1": {
+						"_label": "Travail Pratique 1"
+					},
+					"e2": {
+						"_label": "Travail Pratique 2"
+					}
+				},
+				"footer": {
+					"_label": "Totaux",
+					"cells": {
+						"label": {
+							"_label": "Label",
+							"type": "number",
+							"readOnly": true,
+							"formula": "SUM(R)"
+						},
+						"value": {
+							"_label": "Value",
+							"type": "number"
+						}
+					},
+					"total": {
+						"_label": "Sur X",
+						"type": "number",
+						"readOnly": true,
+						"formula": "SUM(R)",
+						"value": "=formula()"
+					},
+					"total_100": {
+						"_label": "Sur 100",
+						"type": "number",
+						"readOnly": true,
+						"formula": "value*R.total/total.value",
+						"value": 100
+					},
+					"total_5": {
+						"_label": "Sur 5",
+						"type": "number",
+						"readOnly": true,
+						"formula": "value*R.total/total.value",
+						"value": 5
+					}
+				}
+			},
+			"rows": {
+				"header": {
+					"_label": "Criteria"
+				},
+				"bodies": {
+					"_layout": [
+						"nom",
+						"prenom",
+						"matricule",
+						"...data",
+						"...totaux"
+					],
+					"cells": {
+						"nom": {
+							"_label": "Nom",
+							"type": "text"
+						},
+						"prenom": {
+							"_label": "Prénom",
+							"type": "text"
+						},
+						"matricule": {
+							"_label": "Matricule",
+							"type": "text",
+							"validation": "regex:^[0-9]{7}$"
+						}
+					},
+					"g1": {
+						"_label": "Groupe 101"
+					},
+					"g2": {
+						"_label": "Groupe 102"
+					}
+				},
+				"footer": {
+					"_label": "Statistiques",
+					"_layout": [
+						"_label",
+						"....data",
+						"...totaux"
+					],
+					"nombre": {
+						"_label": "Nombre",
+						"type": "number",
+						"readOnly": true,
+						"formula": "COUNT()"
+					},
+					"moyenne": {
+						"_label": "Moyenne",
+						"type": "number",
+						"readOnly": true,
+						"formula": "AVERAGE()"
+					},
+					"ecart_type": {
+						"_label": "Écart-type",
+						"type": "number",
+						"readOnly": true,
+						"formula": "STDEV()"
+					}
+				}
+			},
+			"data": {
+				"validation": {
+					"min": "0",
+					"max": "C.valeur"
+				},
+				"columns": {
+					"e1": {
+						"critere1": 8,
+						"critere2": 14,
+						"critere3": 18
+					},
+					"e2": {
+						"critere1": 10,
+						"critere2": 16
+					}
+				},
+				"g1": [
+					{
+						"nom": "Raté",
+						"prenom": "Rita",
+						"matricule": "1234567",
+						"e1": {
+							"critere1": 9,
+							"critere2": 19,
+							"critere3": 29
+						},
+						"e2": {
+							"critere1": 10,
+							"critere2": 16
+						}
+					},
+					{
+						"nom": "Tanguay",
+						"prenom": "Gaétan",
+						"matricule": "0123456",
+						"e1": {
+							"critere1": 8,
+							"critere2": 18,
+							"critere3": 28
+						},
+						"e2": {
+							"critere1": 9,
+							"critere2": 15
+						}
+					},
+					{
+						"nom": "Berreau",
+						"prenom": "Robert",
+						"matricule": "2345678",
+						"e1": {
+							"critere1": 7,
+							"critere2": 17,
+							"critere3": 27
+						},
+						"e2": {
+							"critere1": 8,
+							"critere2": 14
+						}
+					}
+				],
+				"g2": [
+					{
+						"nom": "Bernard",
+						"prenom": "Norbert",
+						"matricule": "0011223",
+						"e1": {
+							"critere1": 9,
+							"critere2": 19,
+							"critere3": 29
+						},
+						"e2": {
+							"critere1": 10,
+							"critere2": 20
+						}
+					},
+					{
+						"nom": "O'Reilley",
+						"prenom": "Aurélie",
+						"matricule": "1122334",
+						"e1": {
+							"critere1": 8,
+							"critere2": 18,
+							"critere3": 28
+						},
+						"e2": {
+							"critere1": 9,
+							"critere2": 19
+						}
+					}
+				]
+			}
+		}
+	}
+}

@@ -5,6 +5,7 @@
 	<meta charset="UTF-8" />
 	<link rel="shortcut icon" href="img/favicon.svg" type="image/svg+xml" />
 	<link rel="stylesheet" href="css/style.css" />
+	<script type="module" src="index.js"></script>
 	<script type="module">
 		import App from "./src/App.js";
 		App.main();
@@ -25,6 +26,7 @@
 			</nav>
 		</header>
 		<div id="app">
+			<n-binder href="test.json"></n-binder>
 			<div class="binder">
 				<div class="tabs">
 					<div class="active">Feuille 1</div>
@@ -33,32 +35,6 @@
 					<button>+</button>
 				</div>
 				<div class="sheet">
-					<!-- <div class="controls">
-						<div class="col-group" style="--col-group: leader;">
-							<div class="size-control"></div>
-						</div>
-						<div class="col-group" style="--col-group: e1;">
-							<div class="size-control"></div>
-						</div>
-						<div class="col-group" style="--col-group: e2;">
-							<div class="size-control"></div>
-						</div>
-						<div class="col-group" style="--col-group: trailer;">
-							<div class="size-control"></div>
-						</div>
-						<div class="row-group" style="--row-group: header;">
-							<div class="size-control"></div>
-						</div>
-						<div class="row-group" style="--row-group: g1;">
-							<div class="size-control"></div>
-						</div>
-						<div class="row-group" style="--row-group: g2;">
-							<div class="size-control"></div>
-						</div>
-						<div class="row-group" style="--row-group: footer;">
-							<div class="size-control"></div>
-						</div>
-					</div> -->
 					<div class="row-group header">
 					</div>
 					<div class="col-group leader">
@@ -119,15 +95,15 @@
 						<div class="label"><span>Travail Pratique 1</span></div>
 						<div class="row-group header">
 							<div class="col">
-								<div class="cell">Critère 1</div>
+								<div class="cell"><em>Critère 1</em></div>
 								<div class="cell">10</div>
 							</div>
 							<div class="col">
-								<div class="cell">Critère 2</div>
+								<div class="cell"><em>Critère 2</em></div>
 								<div class="cell">20</div>
 							</div>
 							<div class="col">
-								<div class="cell">Critère 3</div>
+								<div class="cell"><em>Critère 3</em></div>
 								<div class="cell">30</div>
 							</div>
 						</div>
