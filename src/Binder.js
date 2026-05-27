@@ -92,7 +92,7 @@ export class Binder extends Component {
 		style: () => {
 			const result = document.createElement("style");
 			result.textContent = `
-				:host > div {
+				:host {
 	display: grid;
 	justify-content: center;
 	padding: 1rem;

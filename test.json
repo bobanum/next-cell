@@ -19,30 +19,6 @@
 						"type": "text"
 					}
 				},
-				"bodies": {
-					"_layout": [
-						"_label",
-						"value",
-						"...data",
-						"...statistiques"
-					],
-					"cells": {
-						"titre": {
-							"_label": "Titre",
-							"type": "text"
-						},
-						"valeur": {
-							"_label": "valeur",
-							"type": "number"
-						}
-					},
-					"e1": {
-						"_label": "Travail Pratique 1"
-					},
-					"e2": {
-						"_label": "Travail Pratique 2"
-					}
-				},
 				"footer": {
 					"_label": "Totaux",
 					"cells": {
@@ -78,6 +54,30 @@
 						"formula": "value*R.total/total.value",
 						"value": 5
 					}
+				},
+				"bodies": {
+					"_layout": [
+						"_label",
+						"value",
+						"...data",
+						"...statistiques"
+					],
+					"_cells": {
+						"titre": {
+							"_label": "Titre",
+							"type": "text"
+						},
+						"valeur": {
+							"_label": "valeur",
+							"type": "number"
+						}
+					},
+					"e1": {
+						"_label": "Travail Pratique 1"
+					},
+					"e2": {
+						"_label": "Travail Pratique 2"
+					}
 				}
 			},
 			"rows": {
@@ -92,7 +92,7 @@
 						"...data",
 						"...totaux"
 					],
-					"cells": {
+					"_cells": {
 						"nom": {
 							"_label": "Nom",
 							"type": "text"

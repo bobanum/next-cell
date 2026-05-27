@@ -4,26 +4,32 @@ export class Component extends HTMLElement {
 		this.attachShadow({ mode: "open" });
 	}
 	static get observedAttributes() {
-		console.log(321);
-		
 		return [];
 	}
 	static register(name) {
 		customElements.define(name, this);
 	}
 	fill(json, extra = {}) {
-		Object.entries(json).forEach(([name, value]) => {
+		const entries = (Array.isArray(json)) ? json : Object.entries(json);
+		for (let [name, value] of entries) {
 			if (this.fillable.includes(name)) {
 				this[name] = value;
+			} else if (name[0] === "_" && this.fillable.includes(name.slice(1))) {
+				this[name.slice(1)] = value;
 			} else {
 				console.warn(`Unknown property "${name}" with value "${value}" in component "${this.constructor.name}"`);
 			}
-		});
+		}
 		
 		for (var name in extra) {
 			this[name] = extra[name];
 		}
 		return this;
+	}
+	static fromJson(json, extra = {}) {
+		var result = new this();
+		result.fill(json, extra);
+		return result;
 	}
 }
 
