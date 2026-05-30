@@ -2,7 +2,7 @@ import { ColGroup } from "./ColGroup.js";
 import { Component } from "./Component.js";
 
 export class Sheet extends Component {
-	fillable = ["id", "name", "columns", "rows", "data"];
+	fillable = ["id", "title", "columns", "rows", "data"];
 	constructor() {
 		super();
 		this._columns = {};
@@ -14,17 +14,25 @@ export class Sheet extends Component {
 	connectedCallback() {
 		this.shadowRoot.appendChild(this.dom.main());
 		this.style.gridTemplateColumns = this.gridTemplateColumns();
-		console.log(this.style.gridTemplateColumns);
-		
+		this.style.gridTemplateRows = this.gridTemplateRows();
+		// console.log(this.style.gridTemplateColumns);
+		// console.log(this.style.gridTemplateRows);
 	}
 	get columns() {
 		return this._columns;
 	}
 	set columns(value) {
-		this._columns = {};
-		for (const [id, colGroup] of Object.entries(value)) {
-			this.addColGroup(colGroup, id);
+		// console.log(123);
+		
+		if (value.header) {
+			this.addColGroup(value.header, "header");
 		}
+		if (value.footer) {
+			this.addColGroup(value.footer, "footer");
+		}
+		value.bodies.forEach((body, id) => {
+			this.addColGroup(body, id);
+		});
 	}
 	addColGroup(colGroup, id) {
 		id = colGroup.id || id;
@@ -38,7 +46,7 @@ export class Sheet extends Component {
 		return result;
 	}
 	gridTemplateColumns() {
-		const result = {
+		const data = {
 			sheet: {
 				"row-label": "var(--col-size)",
 				"header": "repeat(3, var(--col-size))",
@@ -49,19 +57,33 @@ export class Sheet extends Component {
 				"footer": "repeat(3, var(--col-size))",
 			}
 		};
-		function part(data, track) {
-			const result = [];
-			if (typeof data === "object") {
-				data = Object.entries(data).map(([track, data]) => part(data, track)).join(" ");
-			} else {
-				data = `] ${data} [`;
+		return "[ " + this.track(data) + " ]";
+	}
+	gridTemplateRows() {
+		const data = {
+			sheet: {
+				"col-label": "var(--row-size)",
+				"header": "repeat(2, var(--row-size))",
+				"body": {
+					"g1": "repeat(3, var(--row-size))",
+					"g2": "repeat(2, var(--row-size))",
+				},
+				"footer": "repeat(3, var(--row-size))",
 			}
-			if (track) {
-				return `${track}-start ${data} ${track}-end`;
-			}
-			return data;
+		};
+		return "[ " + this.track(data) + " ]";
+	}
+	track(data, trackName) {
+		const result = [];
+		if (typeof data === "object") {
+			data = Object.entries(data).map(([track, data]) => this.track(data, track)).join(" ");
+		} else {
+			data = `] ${data} [`;
 		}
-		return "[ " + part(result) + " ]";
+		if (trackName) {
+			return `${trackName}-start ${data} ${trackName}-end`;
+		}
+		return data;
 	}
 	dom = {
 		style: () => {
@@ -80,19 +102,18 @@ export class Sheet extends Component {
 }
 Sheet.register("n-sheet");
 
-Sheet.css = `
-:host {
-	--row-size: 1.6em;
-	--col-size: minmax(1em,auto);
-	--gap: 5px;
-	display: grid;
-	grid-template-columns: [sheet-start row-label-start] var(--col-size) [row-label-end header-start] repeat(3, var(--col-size)) [header-end body-start e1-start] repeat(3, var(--col-size)) [e1-end e2-start] repeat(2, var(--col-size)) [e2-end body-end footer-start] repeat(3, var(--col-size)) [footer-end sheet-end];
-	grid-template-rows: [sheet-start col-label-start] var(--row-size) [col-label-end header-start] repeat(2, var(--row-size)) [header-end body-start g1-start] repeat(3, var(--row-size)) [g1-end g2-start] repeat(2, var(--row-size)) [g2-end body-end footer-start] repeat(3, var(--row-size)) [footer-end sheet-end];
-	justify-content: center;
-	gap: var(--gap);
-	padding: var(--gap);
-	line-height: 1;
-	border:solid red;
-}`;
+Sheet.css = {
+	":host": {
+		"--row-size": "1.6em",
+		"--col-size": "minmax(3em,auto)",
+		"--gap": "5px",
+		"display": "grid",
+		"justify-content": "center",
+		"gap": "var(--gap)",
+		"padding": "var(--gap)",
+		"line-height": "1",
+		"border": "solid red"
+	}
+};
 
 export default Sheet;

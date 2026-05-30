@@ -1,8 +1,12 @@
 import Component from "./Component.js";
 
 export class Group extends Component {
-	fillable = ["id", "label", "sheet", "layout"];
-	fill(json, extra = {}) {
+	fillable = ["id", "label", "items", "layout"];
+	constructor() {
+		super();
+		this._items = {};
+	}
+	zzzfill(json, extra = {}) {
 		var properties = Object.entries(json).filter(([name]) => name[0] === "_");
 		super.fill(properties);
 		var items = Object.entries(json).filter(([name]) => name[0] !== "_");
@@ -13,6 +17,19 @@ export class Group extends Component {
 			this[name] = extra[name];
 		}
 		return this;
+	}
+	get items() {
+		return this._items;
+	}
+	set items(value) {
+		for (var name in this._items) {
+			this._items[name].remove();
+		}
+
+		this._items = {};
+		value.forEach(itemData => {
+			this.addItem(itemData, itemData.id);
+		});
 	}
 	addItem(item, id) {
 		throw new Error(`Method "addItem" not implemented in class "${this.constructor.name}"`);

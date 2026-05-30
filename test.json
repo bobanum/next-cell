@@ -1,88 +1,114 @@
 {
-	"name": "Évaluations",
+	"title": "Évaluations",
 	"sheets": {
 		"f1": {
-			"name": "Feuille 1",
+			"title": "Feuille 1",
 			"columns": {
 				"header": {
-					"_label": "Identification",
-					"nom": {
-						"_label": "Nom",
-						"type": "text"
-					},
-					"prenom": {
-						"_label": "Prénom",
-						"type": "text"
-					},
-					"matricule": {
-						"_label": "Matricule",
-						"type": "text"
-					}
-				},
-				"footer": {
-					"_label": "Totaux",
-					"cells": {
-						"label": {
-							"_label": "Label",
-							"type": "number",
-							"readOnly": true,
-							"formula": "SUM(R)"
-						},
-						"value": {
-							"_label": "Value",
-							"type": "number"
-						}
-					},
-					"total": {
-						"_label": "Sur X",
-						"type": "number",
-						"readOnly": true,
-						"formula": "SUM(R)",
-						"value": "=formula()"
-					},
-					"total_100": {
-						"_label": "Sur 100",
-						"type": "number",
-						"readOnly": true,
-						"formula": "value*R.total/total.value",
-						"value": 100
-					},
-					"total_5": {
-						"_label": "Sur 5",
-						"type": "number",
-						"readOnly": true,
-						"formula": "value*R.total/total.value",
-						"value": 5
-					}
-				},
-				"bodies": {
-					"_layout": [
-						"_label",
-						"value",
-						"...data",
-						"...statistiques"
-					],
-					"_cells": {
-						"titre": {
-							"_label": "Titre",
+					"label": "Identification",
+					"items": [
+						{
+							"id": "nom",
+							"label": "Nom",
 							"type": "text"
 						},
-						"valeur": {
-							"_label": "valeur",
-							"type": "number"
+						{
+							"id": "prenom",
+							"label": "Prénom",
+							"type": "text"
+						},
+						{
+							"id": "matricule",
+							"label": "Matricule",
+							"type": "text",
+							"validation": "regex:^[0-9]{7}$"
 						}
+					]
+				},
+				"footer": {
+					"label": "Totaux",
+					"items": [
+						{
+							"id": "total",
+							"type": "number",
+							"readOnly": true,
+							"formula": "SUM(R)",
+							"label": "Sur X",
+							"valeur": "=formula()"
+						},
+						{
+							"id": "total_100",
+							"type": "number",
+							"readOnly": true,
+							"formula": "value*R.total/total.value",
+							"label": "Sur 100",
+							"valeur": 100
+						},
+						{
+							"id": "total_5",
+							"type": "number",
+							"readOnly": true,
+							"formula": "value*R.total/total.value",
+							"label": "Sur 5",
+							"valeur": 5
+						}
+					]
+				},
+				"bodies": [
+					{
+						"id": "e1",
+						"label": "Travail Pratique 1"
 					},
-					"e1": {
-						"_label": "Travail Pratique 1"
-					},
-					"e2": {
-						"_label": "Travail Pratique 2"
+					{
+						"id": "e2",
+						"label": "Travail Pratique 2"
 					}
-				}
+				]
 			},
 			"rows": {
 				"header": {
-					"_label": "Criteria"
+					"label": "Criteria",
+					"items": [
+						{
+							"id": "label",
+							"label": "Titre"
+						},
+						{
+							"id": "valeur",
+							"label": "Valeur"
+						}
+					]
+				},
+				"footer": {
+					"label": "Statistiques",
+					"_layout": [
+						"label",
+						"....data",
+						"...totaux"
+					],
+					"items": [
+						{
+							"id": "nombre",
+							"label": "Nombre",
+							"type": "number",
+							"readOnly": true,
+							"formula": "COUNT()"
+						},
+						{
+							"id": "moyenne",
+							"label": "Moyenne",
+							"type": "number",
+							"readOnly": true,
+							"formula": "AVERAGE()"
+						},
+						{
+							"id": "ecart_type",
+							"label": "Écart-type",
+							"type": "number",
+							"readOnly": true,
+							"formula": "STDEV()"
+						}
+					]
 				},
 				"bodies": {
 					"_layout": [
@@ -92,52 +118,30 @@
 						"...data",
 						"...totaux"
 					],
+					"items": [
+						{
+							"id": "g1",
+							"label": "Groupe 101"
+						},
+						{
+							"id": "g2",
+							"label": "Groupe 102"
+						}
+					],
 					"_cells": {
 						"nom": {
-							"_label": "Nom",
+							"label": "Nom",
 							"type": "text"
 						},
 						"prenom": {
-							"_label": "Prénom",
+							"label": "Prénom",
 							"type": "text"
 						},
 						"matricule": {
-							"_label": "Matricule",
+							"label": "Matricule",
 							"type": "text",
 							"validation": "regex:^[0-9]{7}$"
 						}
-					},
-					"g1": {
-						"_label": "Groupe 101"
-					},
-					"g2": {
-						"_label": "Groupe 102"
-					}
-				},
-				"footer": {
-					"_label": "Statistiques",
-					"_layout": [
-						"_label",
-						"....data",
-						"...totaux"
-					],
-					"nombre": {
-						"_label": "Nombre",
-						"type": "number",
-						"readOnly": true,
-						"formula": "COUNT()"
-					},
-					"moyenne": {
-						"_label": "Moyenne",
-						"type": "number",
-						"readOnly": true,
-						"formula": "AVERAGE()"
-					},
-					"ecart_type": {
-						"_label": "Écart-type",
-						"type": "number",
-						"readOnly": true,
-						"formula": "STDEV()"
 					}
 				}
 			},

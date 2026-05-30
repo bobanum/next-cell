@@ -1,7 +1,7 @@
 import Component from "./Component.js";
 
 export class Column extends Component {
-	fillable = ["id", "label", "type", "formula", "readOnly", "value"];
+	fillable = ["id", "label", "type", "formula", "readOnly", "value", "validation"];
 	constructor() {
 		super();
 		this.shadowRoot.appendChild(this.dom.style());
@@ -26,7 +26,12 @@ export class Column extends Component {
 }
 Column.register("n-column");
 
-Column.css = `:host {
-	display: block;
-}`;
+Column.css = {
+	":host": {
+		"display": "grid",
+		"grid-row": "1 / -1",
+		"grid-template": "subgrid / subgrid",
+		"border": "2px solid magenta"
+	}
+};
 export default Column;

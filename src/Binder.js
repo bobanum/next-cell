@@ -3,7 +3,7 @@ import { Tab, TabsGroup } from "./Tabs.js";
 import { Sheet } from "./Sheet.js";
 
 export class Binder extends Component {
-	fillable = ["id", "name", "sheets"];
+	fillable = ["id", "title", "sheets"];
 	constructor() {
 		super();
 		this._sheets = {};
@@ -35,6 +35,13 @@ export class Binder extends Component {
 		if (oldValue === newValue) return;
 		this[name] = newValue;
 	}
+	get title() {
+		return this._title;
+	}
+	set title(value) {
+		this._title = value;
+		this.querySelector("[slot='title']").textContent = value;
+	}
 	get sheets() {
 		return this._sheets;
 	}
@@ -52,12 +59,11 @@ export class Binder extends Component {
 		}
 	}
 	connectedCallback() {
+		this.appendChild(this.dom.title());
 		this.shadowRoot.appendChild(this.dom.style());
 		this.shadowRoot.appendChild(this.dom.main());
 		this.tabs = new TabsGroup();
 		this.tabs.addEventListener("change", (e) => {
-			console.log(e);
-			
 			const id = e.detail.id;
 		});
 		this.shadowRoot.appendChild(this.tabs);
@@ -68,7 +74,7 @@ export class Binder extends Component {
 		this._sheets[id] = sheet;
 		this.appendChild(sheet);
 
-		const tab = new Tab(sheet.name);
+		const tab = new Tab(sheet.title);
 
 		this.tabs.appendChild(tab);
 	}
@@ -81,12 +87,21 @@ export class Binder extends Component {
 	dom = {
 		main: () => {
 			const result = document.createDocumentFragment();
+			const titleSlot = document.createElement("slot");
+			titleSlot.name = "title";
+			result.appendChild(titleSlot);
 			const tabsSlot = document.createElement("slot");
 			tabsSlot.name = "tabs";
 			result.appendChild(tabsSlot);
 			const sheetsSlot = document.createElement("slot");
 			sheetsSlot.name = "sheets";
 			result.appendChild(sheetsSlot);
+			return result;
+		},
+		title: () => {
+			const result = document.createElement("h1");
+			result.slot = "title";
+			result.textContent = this.title;
 			return result;
 		},
 		style: () => {
