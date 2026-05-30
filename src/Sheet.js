@@ -88,7 +88,7 @@ export class Sheet extends Component {
 	dom = {
 		style: () => {
 			const result = document.createElement("style");
-			result.textContent = Sheet.css;
+			result.textContent = this.css;
 			return result;
 		},
 		main: () => {

@@ -106,18 +106,7 @@ export class Binder extends Component {
 		},
 		style: () => {
 			const result = document.createElement("style");
-			result.textContent = `
-				:host {
-	display: grid;
-	justify-content: center;
-	padding: 1rem;
-
-	.sheet {
-		border: 1px solid #ccc;
-		background-color: #f0f0f0;
-	}
-}
-			`;
+			result.textContent = this.css;
 			return result;
 		}
 	};
@@ -133,3 +122,15 @@ export class Binder extends Component {
 	}
 }
 Binder.register("n-binder");
+
+Binder.css = {
+	":host": {
+		"display": "grid",
+		"justify-content": "center",
+		"padding": "1rem",
+	},
+	".sheet": {
+		"border": "10px solid #ccc",
+		"background-color": "#f0f0f0",
+	}
+};

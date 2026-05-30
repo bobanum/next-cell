@@ -50,7 +50,7 @@ export class ColGroup extends Group {
 	dom = {
 		style: () => {
 			const result = document.createElement("style");
-			result.textContent = ColGroup.css;
+			result.textContent = this.css;
 			return result;
 		},
 		main: () => {

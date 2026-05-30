@@ -32,31 +32,54 @@ export class Component extends HTMLElement {
 		result.fill(json, extra);
 		return result;
 	}
-	static get css() {
+	get css() {
 		return this._css;
 	}
-	static set css(value) {
+	set css(value) {
 		if (typeof value !== "string") {
-			value = this.cssToString(value);
+			value = this.renderCSS(value);
 		}
 		this._css = value;
 	}
-	static cssToString(css, prefix) {
-		let result = JSON.stringify(css, null, "\t")
-			.replaceAll(/"([^"]+)":\s*/g, '$1:')
-			.replaceAll(/"([^"]+)",?\n/g, '$1;\n')
-			.replaceAll(/,\n/g, ';\n')
-			.replaceAll(/:\s*{/g, '{')
-			.replaceAll(/};/g, '}')
-			.replaceAll(/\n\t*/g, '')
-			;
-		if (prefix) {
-			return prefix + result;
+	static get css() {
+		return this.prototype.css;
+	}
+	static set css(value) {
+		this.prototype.css = value;
+	}
+	// static cssToString(css, prefix) {
+	// 	let result = JSON.stringify(css, null, "\t")
+	// 		.replaceAll(/"([^"]+)":\s*/g, '$1:')
+	// 		.replaceAll(/"([^"]+)",?\n/g, '$1;\n')
+	// 		.replaceAll(/,\n/g, ';\n')
+	// 		.replaceAll(/:\s*{/g, '{')
+	// 		.replaceAll(/};/g, '}')
+	// 		.replaceAll(/\n\t*/g, '')
+	// 		;
+	// 	if (prefix) {
+	// 		return prefix + result;
+	// 	}
+	// 	return result
+	// 		.replace(/^{\s*/gm, "")
+	// 		.replace(/\s*}$/gm, "")
+	// 		;
+	// }
+	renderCSS(css, prefix) {
+		if (typeof css !== "object") {
+			return css;
 		}
-		return result
-			.replace(/^{\s*/gm, "")
-			.replace(/\s*}$/gm, "")
-			;
+		// for (let [selector, rules] of Object.entries(css)) {
+		const result = Object.entries(css).map(([key, val]) => {
+			if (typeof val === "object") {
+				return this.renderCSS(val, key);
+			} else {
+				return `${key}: ${val};`;
+			}
+		}).join("");
+		if (prefix) {
+			return `${prefix} { ${result} }`;
+		}
+		return result;
 	}
 }
 

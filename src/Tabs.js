@@ -11,7 +11,7 @@ export class TabsGroup extends Component {
 	dom = {
 		style: () => {
 			const result = document.createElement("style");
-			result.textContent = TabsGroup.css;
+			result.textContent = this.css;
 			return result;
 		},
 		main: () => {
@@ -47,7 +47,7 @@ export class Tab extends Component {
 	dom = {
 		style: () => {
 			const result = document.createElement("style");
-			result.textContent = Tab.css;
+			result.textContent = this.css;
 			return result;
 		},
 		main: () => {
@@ -85,87 +85,82 @@ export class Tab extends Component {
 
 Tab.register("n-tab");
 
-TabsGroup.css = `
-:host {
-	--gap: 4px;
-	display: flex;
-	gap: var(--gap);
-	line-height: 1;
-	order: 1;
-	padding-left: .5em;
-
-	button {
-		background-color: transparent;
-		border: none;
-		padding: 0 .5rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 1.5em;
-		line-height: 0;
-		width: 1.5rem;
-		height: 1.5rem;
-		border-radius: 100%;
-		&:hover {
-			background-color: #f0f0f0;
+TabsGroup.css = {
+	":host": {
+		"--gap": "4px",
+		"display": "flex",
+		"gap": "var(--gap)",
+		"line-height": "1",
+		"order": "1",
+		"padding-left": ".5em",
+		"button": {
+			"background-color": "transparent",
+			"border": "none",
+			"padding": "0 .5rem",
+			"display": "flex",
+			"align-items": "center",
+			"justify-content": "center",
+			"font-size": "1.5em",
+			"line-height": "0",
+			"width": "1.5rem",
+			"height": "1.5rem",
+			"border-radius": "100%",
+			"&:hover": {
+				"background-color": "#f0f0f0"
+			}
+		}
+	},
+	":host(.top)": {
+		".tabs": {
+			"order": "-1",
+			">div": {
+				"border-radius": "var(--gap) var(--gap) 0 0",
+				"border": "1px solid #ccc",
+				"border-bottom": "none"
+			}
 		}
 	}
-}
-:host(.top) {
-	.tabs {
-		order: -1;
+};
 
-		>div {
-			border-radius: var(--gap) var(--gap) 0 0;
-			border: 1px solid #ccc;
-			border-bottom: none;
+Tab.css = {
+	":host": {
+		"display": "flex",
+		"padding": "0 .5rem",
+		"padding-right": "0",
+		"border": "1px solid #ccc",
+		"border-top": "none",
+		"background-color": "#e0e0e0",
+		"cursor": "pointer",
+		"border-radius": "0 0 var(--gap) var(--gap)",
+		"gap": "var(--gap)",
+		"justify-content": "space-between",
+		"align-items": "center",
+		"overflow": "hidden",
 
+		">b": {
+			"transition": "200ms",
+			"padding": "0 var(--gap)",
+			"cursor": "pointer",
+			"align-self": "stretch",
+			"display": "flex",
+			"align-items": "center",
+			"justify-content": "center",
+			"&:hover": {
+				"color": "white",
+				"background-color": "#0003"
+			}
+		}
+	},
+	":host(.active)": {
+		"background-color": "#f0f0f0",
+		"font-weight": "bold"
+	},
+	":host(:not(.active):hover)": {
+		"background-color": "#d0d0d0"
+	},
+	":host(:not(:hover))": {
+		">b": {
+			"opacity": "0"
 		}
 	}
-}
-`;
-Tab.css = `
-:host {
-	display: flex;
-	padding: 0 .5rem;
-	padding-right: 0;
-	border: 1px solid #ccc;
-	border-top: none;
-	background-color: #e0e0e0;
-	cursor: pointer;
-	border-radius: 0 0 var(--gap) var(--gap);
-	gap: var(--gap);
-	justify-content: space-between;
-	align-items: center;
-	overflow: hidden;
-
-	>b {
-		transition: 200ms;
-		padding: 0 var(--gap);
-		cursor: pointer;
-		align-self: stretch;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		&:hover {
-			color: white;
-			background-color: #0003;
-		}
-	}
-}
-
-:host(.active) {
-	background-color: #f0f0f0;
-	font-weight: bold;
-}
-
-:host(:not(.active):hover) {
-	background-color: #d0d0d0;
-}
-
-:host(:not(:hover)) {
-	>b {
-		opacity: 0;
-	}
-}
-`;
+};
