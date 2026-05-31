@@ -1,21 +1,21 @@
-import Column from "./Column.js";
 import Component from "./Component.js";
 import Group from "./Group.js";
+import Row from "./Row.js";
 
-export class ColGroup extends Group {
+export class RowGroup extends Group {
 	_label = "";
 	_items = {};
 	_bodies = [];
 	constructor() {
 		super();
 		this.shadowRoot.appendChild(this.dom.style());
-		this.slot = "colGroups";
+		this.slot = "rowGroups";
 	}
 	connectedCallback() {
 		this.shadowRoot.appendChild(this.dom.main());
 	}
 	addItem(item, id) {
-		const itemElement = new Column().fill(item, { id, parent: this, sheet: this.sheet });
+		const itemElement = new Row().fill(item, { id, parent: this, sheet: this.sheet });
 		this._items[id] = itemElement;
 		this.appendChild(itemElement);
 	}
@@ -25,7 +25,7 @@ export class ColGroup extends Group {
 	set id(value) {
 		this._label = value;
 		this._id = value;
-		this.style.setProperty("--col-group", value);
+		this.style.setProperty("--row-group", value);
 	}
 	get bodies() {
 		return this._bodies;
@@ -43,7 +43,7 @@ export class ColGroup extends Group {
 	}
 	dom = {
 		style: () => {
-			const result = document.createElement("style");
+			const result = document.createElement("style");			
 			result.textContent = this.css;
 			return result;
 		},
@@ -55,22 +55,26 @@ export class ColGroup extends Group {
 			result.appendChild(this.createSlot());
 			return result;
 		},
-
 	};
 }
-ColGroup.register("n-col-group");
+RowGroup.register("n-row-group");
 
-ColGroup.css = {
+RowGroup.css = {
 	":host": {
-		"grid-column": "var(--col-group)",
+		"grid-row": "var(--row-group)",
 		"> span": {
-			"grid-row": "col-label",
+			"grid-column": "row-label",
+			"writing-mode": "sideways-lr",
+			"align-self": "end",
+			"justify-self": "end",
+			"padding": "0.2em",
+			"overflow": "hidden",
 		}
 	},
 	"slot": {
 		"grid-template": "subgrid / subgrid",
-		"grid-row": "header / sheet"
+		"grid-column": "header / sheet"
 	}
 };
 
-export default ColGroup;
+export default RowGroup;

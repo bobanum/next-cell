@@ -16,9 +16,7 @@ export class TabsGroup extends Component {
 		},
 		main: () => {
 			const result = document.createDocumentFragment();
-			const slot = document.createElement("slot");
-			slot.name = "tabs";
-			result.appendChild(slot);
+			result.appendChild(this.createSlot("tabs"));
 			result.appendChild(this.dom.button());
 			return result;
 		},
@@ -52,8 +50,7 @@ export class Tab extends Component {
 		},
 		main: () => {
 			const result = document.createDocumentFragment();
-			const slot = document.createElement("slot");
-			result.appendChild(slot);
+			result.appendChild(this.createSlot());
 			result.appendChild(this.dom.menu());
 			return result;
 		},

@@ -1,29 +1,25 @@
-import { ColGroup } from "./ColGroup.js";
-import { Component } from "./Component.js";
+import Component from "./Component.js";
+import ColGroup from "./ColGroup.js";
+import RowGroup from "./RowGroup.js";
 
 export class Sheet extends Component {
 	fillable = ["id", "title", "columns", "rows", "data"];
 	constructor() {
-		super();
+		super();		
 		this._columns = {};
 		this._rows = {};
 		this._data = {};
-		
 		this.shadowRoot.appendChild(this.dom.style());
 	}
 	connectedCallback() {
 		this.shadowRoot.appendChild(this.dom.main());
 		this.style.gridTemplateColumns = this.gridTemplateColumns();
 		this.style.gridTemplateRows = this.gridTemplateRows();
-		// console.log(this.style.gridTemplateColumns);
-		// console.log(this.style.gridTemplateRows);
 	}
 	get columns() {
 		return this._columns;
 	}
 	set columns(value) {
-		// console.log(123);
-		
 		if (value.header) {
 			this.addColGroup(value.header, "header");
 		}
@@ -34,10 +30,30 @@ export class Sheet extends Component {
 			this.addColGroup(body, id);
 		});
 	}
+	get rows() {
+		return this._rows;
+	}
+	set rows(value) {
+		console.log(value);
+		if (value.header) {
+			this.addRowGroup(value.header, "header");
+		}
+		if (value.footer) {
+			this.addRowGroup(value.footer, "footer");
+		}
+		value.bodies.forEach((body, id) => {
+			this.addRowGroup(body, id);
+		});
+	}
 	addColGroup(colGroup, id) {
 		id = colGroup.id || id;
-		this._columns[id] = ColGroup.fromJson(colGroup, { id, sheet: this });
+		this._columns[id] = ColGroup.fromJson(colGroup, { id, parent:this, sheet: this });
 		this.appendChild(this._columns[id]);
+	}
+	addRowGroup(rowGroup, id) {
+		id = rowGroup.id || id;
+		this._rows[id] = RowGroup.fromJson(rowGroup, { id, parent:this, sheet: this });
+		this.appendChild(this._rows[id]);
 	}
 	static fromJson(json, extra = {}) {
 		var result = new this();
@@ -48,7 +64,7 @@ export class Sheet extends Component {
 	gridTemplateColumns() {
 		const data = {
 			sheet: {
-				"row-label": "var(--col-size)",
+				"row-label": "auto",
 				"header": "repeat(3, var(--col-size))",
 				"body": {
 					"e1": "repeat(3, var(--col-size))",
@@ -93,9 +109,8 @@ export class Sheet extends Component {
 		},
 		main: () => {
 			const result = document.createDocumentFragment();
-			const colGroupSlot = document.createElement("slot");
-			colGroupSlot.name = "colGroups";
-			result.appendChild(colGroupSlot);
+			result.appendChild(this.createSlot("colGroups"));
+			result.appendChild(this.createSlot("rowGroups"));
 			return result;
 		}
 	};
@@ -112,7 +127,6 @@ Sheet.css = {
 		"gap": "var(--gap)",
 		"padding": "var(--gap)",
 		"line-height": "1",
-		"border": "solid red"
 	}
 };
 

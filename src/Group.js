@@ -6,18 +6,6 @@ export class Group extends Component {
 		super();
 		this._items = {};
 	}
-	zzzfill(json, extra = {}) {
-		var properties = Object.entries(json).filter(([name]) => name[0] === "_");
-		super.fill(properties);
-		var items = Object.entries(json).filter(([name]) => name[0] !== "_");
-		for (const [name, value] of items) {
-			this.addItem(value, name);
-		}
-		for (var name in extra) {
-			this[name] = extra[name];
-		}
-		return this;
-	}
 	get items() {
 		return this._items;
 	}
@@ -37,9 +25,23 @@ export class Group extends Component {
 }
 Group.register("n-group");
 
-Group.css = `
-:host {
-	display: block;
-}`;
+Group.css = {
+	":host": {
+		"display": "grid",
+		"grid-template": "subgrid / subgrid",
+		"grid-area": "sheet",
+		"> span": {
+			"grid-area": "1 / 1 / -1 / -1",
+			"overflow": "hidden",
+			"background": "rgba(0, 128, 0, 0.2)",
+		}
+	},
+	"slot": {
+		"display": "grid",
+		"background": "rgba(0, 128, 0, 0.2)",
+		"grid-template": "subgrid / subgrid",
+		"grid-area": "1 / 1 / -1 / -1",
+	}
+};
 
 export default Group;

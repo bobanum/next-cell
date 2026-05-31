@@ -87,15 +87,9 @@ export class Binder extends Component {
 	dom = {
 		main: () => {
 			const result = document.createDocumentFragment();
-			const titleSlot = document.createElement("slot");
-			titleSlot.name = "title";
-			result.appendChild(titleSlot);
-			const tabsSlot = document.createElement("slot");
-			tabsSlot.name = "tabs";
-			result.appendChild(tabsSlot);
-			const sheetsSlot = document.createElement("slot");
-			sheetsSlot.name = "sheets";
-			result.appendChild(sheetsSlot);
+			result.appendChild(this.createSlot("title"));
+			result.appendChild(this.createSlot("tabs"));
+			result.appendChild(this.createSlot("sheets"));
 			return result;
 		},
 		title: () => {
@@ -121,8 +115,6 @@ export class Binder extends Component {
 		return result;
 	}
 }
-Binder.register("n-binder");
-
 Binder.css = {
 	":host": {
 		"display": "grid",
@@ -134,3 +126,4 @@ Binder.css = {
 		"background-color": "#f0f0f0",
 	}
 };
+Binder.register("n-binder");

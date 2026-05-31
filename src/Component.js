@@ -1,4 +1,5 @@
 export class Component extends HTMLElement {
+	static _css = "component { display: block; }";
 	constructor() {
 		super();
 		this.attachShadow({ mode: "open" });
@@ -33,42 +34,31 @@ export class Component extends HTMLElement {
 		return result;
 	}
 	get css() {
-		return this._css;
+		return this.constructor.css;
 	}
 	set css(value) {
+		this.constructor.css = value;
+	}
+	static get css() {
+		return this._css || "";
+	}
+	static set css(value) {	
 		if (typeof value !== "string") {
 			value = this.renderCSS(value);
 		}
-		this._css = value;
+		this._css = (this.__proto__._css || "") + value;
 	}
-	static get css() {
-		return this.prototype.css;
+	createSlot(name) {
+		const slot = document.createElement("slot");
+		if (name) {
+			slot.name = name;
+		}
+		return slot;
 	}
-	static set css(value) {
-		this.prototype.css = value;
-	}
-	// static cssToString(css, prefix) {
-	// 	let result = JSON.stringify(css, null, "\t")
-	// 		.replaceAll(/"([^"]+)":\s*/g, '$1:')
-	// 		.replaceAll(/"([^"]+)",?\n/g, '$1;\n')
-	// 		.replaceAll(/,\n/g, ';\n')
-	// 		.replaceAll(/:\s*{/g, '{')
-	// 		.replaceAll(/};/g, '}')
-	// 		.replaceAll(/\n\t*/g, '')
-	// 		;
-	// 	if (prefix) {
-	// 		return prefix + result;
-	// 	}
-	// 	return result
-	// 		.replace(/^{\s*/gm, "")
-	// 		.replace(/\s*}$/gm, "")
-	// 		;
-	// }
-	renderCSS(css, prefix) {
+	static renderCSS(css, prefix) {
 		if (typeof css !== "object") {
 			return css;
 		}
-		// for (let [selector, rules] of Object.entries(css)) {
 		const result = Object.entries(css).map(([key, val]) => {
 			if (typeof val === "object") {
 				return this.renderCSS(val, key);

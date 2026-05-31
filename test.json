@@ -57,11 +57,42 @@
 				"bodies": [
 					{
 						"id": "e1",
-						"label": "Travail Pratique 1"
+						"label": "Travail Pratique 1",
+						"items": [
+							{
+								"id": "critere1",
+								"label": "Critère 1",
+								"type": "number"
+							},
+							{
+								"id": "critere2",
+								"label": "Critère 2",
+								"type": "number"
+							},
+							{
+								"id": "critere3",
+								"label": "Critère 3",
+								"type": "number"
+							}
+						]
 					},
 					{
 						"id": "e2",
-						"label": "Travail Pratique 2"
+						"label": "Travail Pratique 2",
+						"items": [
+							{
+								"id": "critere1",
+								"label": "Critère 1",
+								"type": "number",
+								"valeur": 20
+							},
+							{
+								"id": "critere2",
+								"label": "Critère 2",
+								"type": "number",
+								"valeur": 16
+							}
+						]
 					}
 				]
 			},
@@ -110,40 +141,16 @@
 						}
 					]
 				},
-				"bodies": {
-					"_layout": [
-						"nom",
-						"prenom",
-						"matricule",
-						"...data",
-						"...totaux"
-					],
-					"items": [
-						{
-							"id": "g1",
-							"label": "Groupe 101"
-						},
-						{
-							"id": "g2",
-							"label": "Groupe 102"
-						}
-					],
-					"_cells": {
-						"nom": {
-							"label": "Nom",
-							"type": "text"
-						},
-						"prenom": {
-							"label": "Prénom",
-							"type": "text"
-						},
-						"matricule": {
-							"label": "Matricule",
-							"type": "text",
-							"validation": "regex:^[0-9]{7}$"
-						}
+				"bodies": [
+					{
+						"id": "g1",
+						"label": "Groupe 101"
+					},
+					{
+						"id": "g2",
+						"label": "Groupe 102"
 					}
-				}
+				]
 			},
 			"data": {
 				"validation": {

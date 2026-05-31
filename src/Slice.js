@@ -1,6 +1,7 @@
-import Slice from "./Slice.js";
+import Component from "./Component.js";
 
-export class Row extends Slice {
+export class Slice extends Component {
+	fillable = ["id", "label", "type", "formula", "readOnly", "value", "validation"];
 	constructor() {
 		super();
 		this.shadowRoot.appendChild(this.dom.style());
@@ -8,7 +9,7 @@ export class Row extends Slice {
 	connectedCallback() {
 		this.shadowRoot.appendChild(this.dom.main());
 	}
-	zzzdom = {
+	dom = {
 		style: () => {
 			const result = document.createElement("style");
 			result.textContent = this.css;
@@ -23,11 +24,14 @@ export class Row extends Slice {
 		}
 	};
 }
+Slice.register("n-slice");
 
-Row.css = {
+Slice.css = {
 	":host": {
-		"grid-row": "auto",
+		"display": "grid",
+		"grid-area": "1 / 1 / -1 / -1",
+		"grid-template": "subgrid / subgrid",
+		"background": "rgba(128, 0, 0, 0.1)",
 	}
 };
-Row.register("n-row");
-export default Row;
+export default Slice;

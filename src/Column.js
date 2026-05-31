@@ -1,6 +1,6 @@
-import Component from "./Component.js";
+import Slice from "./Slice.js";
 
-export class Column extends Component {
+export class Column extends Slice {
 	fillable = ["id", "label", "type", "formula", "readOnly", "value", "validation"];
 	constructor() {
 		super();
@@ -9,7 +9,7 @@ export class Column extends Component {
 	connectedCallback() {
 		this.shadowRoot.appendChild(this.dom.main());
 	}
-	dom = {
+	zzzdom = {
 		style: () => {
 			const result = document.createElement("style");
 			result.textContent = this.css;
@@ -20,6 +20,8 @@ export class Column extends Component {
 			const label = document.createElement("span");
 			label.textContent = this.label;
 			result.appendChild(label);
+			console.log(123);
+			
 			return result;
 		}
 	};
@@ -28,10 +30,7 @@ Column.register("n-column");
 
 Column.css = {
 	":host": {
-		"display": "grid",
-		"grid-row": "1 / -1",
-		"grid-template": "subgrid / subgrid",
-		"border": "2px solid magenta"
+		"grid-column": "auto",
 	}
 };
 export default Column;
