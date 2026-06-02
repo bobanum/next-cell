@@ -78,7 +78,7 @@ export class Sheet extends Component {
 	gridTemplateRows() {
 		const data = {
 			sheet: {
-				"col-label": "var(--row-size)",
+				"col-label": "auto",
 				"header": "repeat(2, var(--row-size))",
 				"body": {
 					"g1": "repeat(3, var(--row-size))",

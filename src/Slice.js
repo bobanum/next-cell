@@ -31,7 +31,7 @@ Slice.css = {
 		"display": "grid",
 		"grid-area": "1 / 1 / -1 / -1",
 		"grid-template": "subgrid / subgrid",
-		"background": "rgba(128, 0, 0, 0.1)",
+		"border": "1px solidrgba(128, 0, 0, 0.1)",
 	}
 };
 export default Slice;

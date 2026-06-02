@@ -67,8 +67,7 @@ RowGroup.css = {
 			"writing-mode": "sideways-lr",
 			"align-self": "end",
 			"justify-self": "end",
-			"padding": "0.2em",
-			"overflow": "hidden",
+			"height": "100%",
 		}
 	},
 	"slot": {

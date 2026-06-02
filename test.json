@@ -98,7 +98,6 @@
 			},
 			"rows": {
 				"header": {
-					"label": "Criteria",
 					"items": [
 						{
 							"id": "label",
@@ -111,12 +110,6 @@
 					]
 				},
 				"footer": {
-					"label": "Statistiques",
-					"_layout": [
-						"label",
-						"....data",
-						"...totaux"
-					],
 					"items": [
 						{
 							"id": "nombre",

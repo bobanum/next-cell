@@ -31,9 +31,19 @@ Group.css = {
 		"grid-template": "subgrid / subgrid",
 		"grid-area": "sheet",
 		"> span": {
+			"display": "grid",
+			"align-items": "center",
+			"justify-items": "center",
 			"grid-area": "1 / 1 / -1 / -1",
 			"overflow": "hidden",
 			"background": "rgba(0, 128, 0, 0.2)",
+			"text-overflow": "ellipsis",
+			"box-sizing": "border-box",
+			"text-align": "center",
+			"padding": "0.2em",
+			"&:empty": {
+				"display": "none",
+			}
 		}
 	},
 	"slot": {
@@ -41,6 +51,7 @@ Group.css = {
 		"background": "rgba(0, 128, 0, 0.2)",
 		"grid-template": "subgrid / subgrid",
 		"grid-area": "1 / 1 / -1 / -1",
+		"border": "1px solid rgba(0, 128, 0, 0.2)",
 	}
 };
 
